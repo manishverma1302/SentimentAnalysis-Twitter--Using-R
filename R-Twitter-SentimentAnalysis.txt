@@ -1,0 +1,23 @@
+# Sentiment analysis
+library(syuzhet)
+library(lubridate)
+library(ggplot2)
+library(scales)
+library(reshape2)
+library(dplyr)
+
+# Read file from computer
+verma <- read.csv(file.choose(), header = T)
+#tweets <- iconv(verma$text, to = 'utf-8-mac')  # optional for MAc OS
+tweets <- as.character(verma$text)
+
+# Obtain sentiment scores
+s <- get_nrc_sentiment(tweets)
+head(s)
+
+# Bar plot
+barplot(colSums(s),
+        las = 2,
+        col = rainbow(10),
+        ylab = 'Count',
+        main = 'Heading of the Chart')
